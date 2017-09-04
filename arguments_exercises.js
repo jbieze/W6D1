@@ -28,14 +28,17 @@ const sumRest = function sumRest(...nums) {
 //   };
 // };
 
-const myBindArgs = function myBindArgs(args) {
+Function.prototype.myBindArgs = function (args) {
   const givenArgs = this;
+  const boundArgs = Array.from(arguments).slice(1);
   return function () {
-    const Args = Array.from(arguments);
-    return givenArgs.apply(args, arguments.slice(1));
+    const otherArgs = Array.from(arguments);
+    return givenArgs.apply(args, boundArgs.concat(otherArgs));
   };
 };
 
-const myBindRest = function myBindRest(...args) {
-
+Function.prototype.myBindRest = function (args, ...boundArgs) {
+  return (...otherArgs) => {
+    return this.apply(args, boundArgs.concat(otherArgs));
+  };
 };
