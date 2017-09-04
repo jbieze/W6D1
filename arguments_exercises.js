@@ -42,3 +42,51 @@ Function.prototype.myBindRest = function (args, ...boundArgs) {
     return this.apply(args, boundArgs.concat(otherArgs));
   };
 };
+
+function curriedSum(numArgs) {
+  const numbers = [];
+
+  function _curriedSum(num) {
+    numbers.push(num);
+    if (numbers.length === numArgs) {
+      let sum = 0;
+      numbers.forEach(function(n) {
+        sum += n;
+      });
+      return sum;
+    } else {
+      return _curriedSum;
+    }
+  }
+
+  return _curriedSum;
+}
+
+Function.prototype.curryApply = function(numArgs){
+  const args = [];
+  let thisFunc = this;
+  function _curried(firstArg = Array.from(arguments).slice(1)){
+    args.push(firstArg);
+    if (args.length === numArgs) {
+      return thisFunc.apply(null, args);
+    } else {
+      return _curried;
+    }
+  }
+  return _curried;
+};
+
+Function.prototype.currySpread = function (numArgs) {
+  const args = [];
+  const thisFunc = this;
+  function _curried(firstArg = Array.from(arguments).slice(1)) {
+    args.push(firstArg);
+    if (args.length === numArgs) {
+      return thisFunc(...args);
+    } else {
+      return _curried;
+    }
+  }
+
+  return _curried;
+};
