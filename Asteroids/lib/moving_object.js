@@ -5,8 +5,11 @@
 
 const Util = require("./utils");
 
-const MovingObject = function MovingObject() {
-
+const MovingObject = function MovingObject(options) {
+  this.pos = options.pos;
+  this.vel = options.vel;
+  this.rad = options.rad;
+  this.color = options.color;
 };
 
 module.exports = MovingObject;
