@@ -20,7 +20,6 @@ MovingObject.prototype.draw = function (ctx) {
 };
 
 MovingObject.prototype.move = function (timeDelta) {
-
   this.pos = this.pos[0] + this.vel;
 };
 
